@@ -1,4 +1,5 @@
 const {users} = require('../models')
+const Token = require('../middleware/Token')
 const bcrypt = require('bcryptjs');
 
 class AuthController{
@@ -31,8 +32,51 @@ class AuthController{
         res.send(createUser);
 
     }
-    
+    static signin = async (req,res)=>{
+        //masuk atau autentikasikan akun yang sudah dibuat
+        
+        try{ 
+        const {email,password} = req.body;
+
+        const findEmail = await users.findOne({where:{email:email}});
+
+        const verifyPassword = await bcrypt.compare(password,findEmail.password)
+
+        if(findEmail && verifyPassword){
+            const userInfo = Token.getInfoProtected(findEmail);
+
+            const token = Token.generateToken(userInfo)
+
+            res.cookie('token',token,{
+                sameSite:process.env.PRODUCTION==='true'?"None":'Lax',
+                maxAge:new Date(Date.now() + (parseInt(process.env.COOKIE_EXPIRATION_DAYS * 24 * 60 * 60 * 1000))),
+                httpOnly:true,
+                secure:process.env.PRODUCTION==='true'?true:false
+            })
+            return res.status(200).json(Token.getInfoProtected(findEmail))
+        }
+        res.clearCookies('token')
+        return res.status(404).json({message:'invalid credentials'})
+        }catch(err){
+            console.log(err);
+            res.status(404).json({message:'error occured while login, try again later'})
+        }
+    }
+    static LogOut = async(req,res)=>{
+        try{
+            res.cookie('token',{
+                maxAge:0,
+                sameSite:process.env.PRODUCTION==='true'?"None":'Lax',
+                httpOnly:true,
+                secure:process.env.PRODUCTION==='true'?true:false
+            })
+            res.status(200).json({message:'logout successfull'})
+        }catch(err){
+            console.log(err);
+        }
+    }
     
 }
+
 
 module.exports = AuthController;
