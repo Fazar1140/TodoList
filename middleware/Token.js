@@ -7,8 +7,11 @@ const generateToken = (payload,passwordReset=false)=>{
     return jwt.sign(payload,process.env.SECRET_KEY,{expiresIn:'24H'})
 }
 
-const getInfoProtected = (users)=>{
-    return{id:users.id,email:users.email,username:users.username}
+const getInfoProtectedToken = (users,token)=>{
+    return {id:users.id,email:users.email,username:users.username,token}
+}
+const getToken = (token)=>{
+    return{token};
 }
 
 const verifyToken = (req,res,next)=>{
@@ -43,4 +46,4 @@ const verifyToken = (req,res,next)=>{
     }
 }
 
-module.exports = {generateToken,getInfoProtected,verifyToken}
+module.exports = {generateToken,getInfoProtectedToken,verifyToken,getToken}

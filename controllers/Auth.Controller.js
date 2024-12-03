@@ -43,7 +43,7 @@ class AuthController{
         const verifyPassword = await bcrypt.compare(password,findEmail.password)
 
         if(findEmail && verifyPassword){
-            const userInfo = Token.getInfoProtected(findEmail);
+            const userInfo = Token.getInfoProtectedToken(findEmail);
 
             const token = Token.generateToken(userInfo)
 
@@ -53,7 +53,7 @@ class AuthController{
                 httpOnly:true,
                 secure:process.env.PRODUCTION==='true'?true:false
             })
-            return res.status(200).json(Token.getInfoProtected(findEmail))
+            return res.status(200).json(Token.getInfoProtectedToken(findEmail,token))
         }
         res.clearCookies('token')
         return res.status(404).json({message:'invalid credentials'})
