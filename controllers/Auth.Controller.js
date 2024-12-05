@@ -4,11 +4,6 @@ const bcrypt = require('bcryptjs');
 
 class AuthController{
 
-    static provideAuth = async (req,res)=>{
-        //memberi tampilan dari website untuk authentikasi akun
-        res.send('Auth finder');
-    }
-
     static signup = async (req,res)=>{
         //membuat akun yang berisikan email,username dan password
         const {email,username,password} = req.body;
@@ -55,7 +50,7 @@ class AuthController{
             })
             return res.status(200).json(Token.getInfoProtectedToken(findEmail,token))
         }
-        res.clearCookies('token')
+        res.clearCookie('token')
         return res.status(404).json({message:'invalid credentials'})
         }catch(err){
             console.log(err);
@@ -64,12 +59,7 @@ class AuthController{
     }
     static LogOut = async(req,res)=>{
         try{
-            res.cookie('token',{
-                maxAge:0,
-                sameSite:process.env.PRODUCTION==='true'?"None":'Lax',
-                httpOnly:true,
-                secure:process.env.PRODUCTION==='true'?true:false
-            })
+            res.clearCookie('token')
             res.status(200).json({message:'logout successfull'})
         }catch(err){
             console.log(err);
