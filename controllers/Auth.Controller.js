@@ -24,7 +24,7 @@ class AuthController{
             username:username,
             password: await bcrypt.hash(password,10)
         })
-        res.send(createUser);
+        res.status(201).send(createUser);
 
     }
     static signin = async (req,res)=>{

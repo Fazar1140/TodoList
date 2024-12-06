@@ -12,13 +12,26 @@ class TaskController {
     }
     static async getAllTaskWithProp(req,res){
         //mengeluarkan table task beserta dengan langkah langkah 
-        const user_id = req.user.id;      
+       
 
-        const getTaskProp = await task.findAll({where:{user_id:user_id},include:{model:task_inner}});
+        const getTaskProp = await task.findAll();
         res.send(getTaskProp)
     }
     static async createTaskTable(req,res){
-        //membuat task table 
+        //membuat task table tanpa token
+        const {user_id,task_title,task_status} = req.body;
+     
+
+        const makeTaskTable = await task.create(
+            {
+                user_id,task_title,task_status
+            }
+        )
+        res.send(makeTaskTable);
+    }
+
+    static async createTaskTable(req,res){
+        //membuat task table dengan token
         const {task_title,task_status} = req.body;
         const user_id = req.user.id ;
 
@@ -35,9 +48,9 @@ class TaskController {
         const user_id = req.user.id
         const findTaskTableById = await task.findByPk(id);
         if(findTaskTableById.user_id == user_id){
-            res.send(findTaskTableById);
+            res.status(200).send(findTaskTableById);
         }else{
-            res.send('task id doesnt exist on user ');
+            res.status(400).send('task id doesnt exist on user ');
         }
       
 

@@ -16,7 +16,9 @@ app.use('/Auth',AuthRoutes);
 app.use('/Task',TaskRoutes);
 app.use('/TaskProp',TaskPropRoutes);
 
-app.listen(process.env.PORT,()=>{
-    console.log('listen to the port ' + process.env.PORT)
+app.listen(process.env.PORT,(req,res)=>{
+    console.log('listen on the port ', process.env.PORT);
 })
 
+
+module.exports = app;
