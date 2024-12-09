@@ -5,7 +5,7 @@ const routes = express.Router();
 
 //tanpa token
 routes.get('/',TaskController.getAllTaskWithProp)
-routes.post('/post',TaskController.createTaskTable)
+routes.post('/post',TaskController.postTaskTable)
 //memerlukan token
 routes.use(Token.verifyToken);
 routes.post('/create',TaskController.createTaskTable)

@@ -7,7 +7,7 @@ class TaskController {
         const user_id = req.user.id;
 
         const findAllTask = await task.findAll({where:{user_id:user_id}});
-        res.send(findAllTask);
+        res.status(200).send(findAllTask);
 
     }
     static async getAllTaskWithProp(req,res){
@@ -15,9 +15,9 @@ class TaskController {
        
 
         const getTaskProp = await task.findAll();
-        res.send(getTaskProp)
+        res.status(200).send(getTaskProp)
     }
-    static async createTaskTable(req,res){
+    static async postTaskTable(req,res){
         //membuat task table tanpa token
         const {user_id,task_title,task_status} = req.body;
      
@@ -27,7 +27,7 @@ class TaskController {
                 user_id,task_title,task_status
             }
         )
-        res.send(makeTaskTable);
+        res.status(201).send(makeTaskTable);
     }
 
     static async createTaskTable(req,res){
