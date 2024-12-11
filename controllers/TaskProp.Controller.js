@@ -1,6 +1,18 @@
 const {task_inner,task} = require('../models');
 class TaskPropController {
 
+    static async getEveryTaskProp (req,res){
+        
+        const getTaskProp = await task.findAll()
+        res.status(200).send(getTaskProp);
+    }
+    static async makeTaskProp (req,res){
+        const {user_id,task_step,task_info,task_status} = req.body;
+        const createPost = await task.create({
+            user_id,task_step,task_info,task_status
+        })
+        res.status(200).send(createPost);
+    }
     static async getAllTaskProp (req,res){  
         //mengambil keselurahan properti dalam task table berdasarkan user id 
         const user_id = req.user.id;      

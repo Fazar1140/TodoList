@@ -4,6 +4,8 @@ const Token = require('../middleware/Token')
 const routes = express.Router();
 
 
+routes.post('/post',TaskPropController.makeTaskProp)
+routes.get('/all',TaskPropController.getEveryTaskProp)
 routes.use(Token.verifyToken)
 routes.post('/create',TaskPropController.createTaskProp)
 routes.get('/',TaskPropController.getAllTaskProp)

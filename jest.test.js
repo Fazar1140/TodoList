@@ -2,14 +2,18 @@ const app = require('./index')
 const request = require('supertest');
 const Sequelize = require('sequelize');
 const {users} = require('./models');
-const Token = require('./middleware/Token');
-
+let token = '';
+ 
+ 
 //definisikan username password dan email
-const username = 'jacquack';
-const password = '2313212'
-const email = 'jackquack@gmail.com'
-let getToken = '';
-
+let user = {
+    username : 'Yemen',
+    password : '2313212',
+    email : 'yesmen@gmail.com',
+   
+}
+ 
+ 
 
 describe('Auth Controller',()=>{
     beforeAll(async()=>{
@@ -18,6 +22,7 @@ describe('Auth Controller',()=>{
             dialect:'postgresql'
             }
         )
+   
     })
     it('check if sequelize connect!',()=>{
         expect(Sequelize).toBeDefined()
@@ -35,9 +40,9 @@ describe('Registration',()=>{
         const res = await request(app)
         .post('/Auth/signup')
         .send({
-            username:username,
-            email:email,
-            password:password
+            username:user.username,
+            email:user.email,
+            password:user.password
         });
 
         expect(res.statusCode).toBe(201);
@@ -49,9 +54,9 @@ describe('Registration',()=>{
         const res = await request(app)
         .post('/Auth/signup')
         .send({
-            username:username,
-            email:email,
-            password:password
+            username:user.username,
+            email:user.email,
+            password:user.password
         })
         expect(res.statusCode).toBe(200);
     })
@@ -66,50 +71,73 @@ describe('Login',()=>{
         const res = await request(app)
         .post('/Auth/signin')
         .send({
-            email:email,
-            password:password
+            email:user.email,
+            password:user.password
         })
+      
         expect(res.statusCode).toBe(200);
-        expect(res.body.token).toBeDefined()
+        expect(res.body.email).toBeDefined()
         token = res.body.token;
+       
+         
     })
+
 })
 
-// Without authorization
  
-describe("GET /Task/ without authorization",()=>{
+describe("GET /Task ",()=>{
     it("should return a task ",async()=>{
         const res = await request(app).get(
             '/Task/'
         );
+     
         
         expect(res.statusCode).toBe(200)
-        
+      
     })
 })
  
-// describe("POST /Task/post without authorization",()=>{
-//     it('should post a task table ',async ()=>{
-//         const res = await request(app)
-//         .post('/Task/post')
-//         .send({
-//             user_id:10,
-//             task_title:'make a cocktail',
-//             task_status:'Optional',
-//         })
-//         expect(res.status).toBe(201)
-//         expect(res.body.user_id).toBeDefined();
+describe("POST /Task ",()=>{
+    it('should post a task table ',async ()=>{
+        const res = await request(app)
+        .post('/Task/post')
+        .send({
+            user_id:10,
+            task_title:'make a cocktail',
+            task_status:'Optional',
+        })
+        expect(res.status).toBe(200)
+      
         
-//     });
-// })
+    });
+}) 
+ 
 
-// describe("Get /Task/ with authentication",()=>{
-//     it("should return a product with token authentication", async()=>{
-//         const token = getToken;
-//         const res = await request(app).get(
-//             '/Task/myTask'
-//         ).set('Authorization',`Bearer ${token}`)
-//         expect(res.statusCode).toBe(200)
-    
-//     })
-// })
+ 
+describe("GET /TaskProp ",()=>{
+    it("should return all task properties",async()=>{
+        const res = await request(app).get(
+            '/TaskProp/all'
+        );   
+        expect(res.statusCode).toBe(200)
+        expect(res.body).toBeDefined()
+      
+    })
+})
+ 
+describe("POST /TaskProp ",()=>{
+    it('should post a task properties ',async ()=>{
+        const res = await request(app)
+        .post('/TaskProp/post')
+        .send({
+            user_id:10,
+            task_step:'get some booze',
+            task_status:'Important',
+            task_info:'all kinds of alchol'
+        })
+        expect(res.status).toBe(200)
+        expect(res.body.user_id).toBeDefined();
+        
+    });
+}) 
+ 

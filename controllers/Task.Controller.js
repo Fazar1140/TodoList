@@ -27,7 +27,7 @@ class TaskController {
                 user_id,task_title,task_status
             }
         )
-        res.status(201).send(makeTaskTable);
+        res.status(200).send(makeTaskTable);
     }
 
     static async createTaskTable(req,res){
@@ -40,7 +40,7 @@ class TaskController {
                 user_id,task_title,task_status
             }
         )
-        res.send(makeTaskTable);
+        res.status(200).send(makeTaskTable);
     }
     static async getTaskById(req,res){
         //mengambil task berdasarkan id parameter

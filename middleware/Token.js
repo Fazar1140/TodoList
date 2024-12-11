@@ -17,7 +17,7 @@ const getToken = (token)=>{
 const verifyToken = (req,res,next)=>{
     try{
 
-        const {token} = req.cookies;
+        const {token} = req.headers['authorization'];
 
         if(!token){
             res.status(401).json({message:'token is missing please login'})
@@ -39,10 +39,10 @@ const verifyToken = (req,res,next)=>{
             return res.status(401).json({message:'token is expired please log in again'})
         }
         else if(err instanceof jwt.JsonWebTokenError){
-            return res.status(401).json({message:'invalid token please log in again'})
-        }else{
-            return res.status(500).json({message:'internal server error!'})
-        }
+            return res.status(401).json({message:'invalid token please log in again'})}
+        // }else{
+        //     return res.status(500).json({message:'internal server error!'})
+        // }
     }
 }
 
