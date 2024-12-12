@@ -1,19 +1,15 @@
 const app = require('./index')
 const request = require('supertest');
 const Sequelize = require('sequelize');
-const {users} = require('./models');
-let token = '';
- 
+  
  
 //definisikan username password dan email
 let user = {
-    username : 'Yemen',
+    username : 'cajobson',
     password : '2313212',
-    email : 'yesmen@gmail.com',
+    email : 'cajobson@gmail.com',
    
 }
- 
- 
 
 describe('Auth Controller',()=>{
     beforeAll(async()=>{
@@ -74,10 +70,13 @@ describe('Login',()=>{
             email:user.email,
             password:user.password
         })
+   
       
         expect(res.statusCode).toBe(200);
         expect(res.body.email).toBeDefined()
-        token = res.body.token;
+        const getToken = res.body.token;
+        console.log(getToken)
+    
        
          
     })
@@ -140,4 +139,5 @@ describe("POST /TaskProp ",()=>{
         
     });
 }) 
+ 
  

@@ -7,7 +7,7 @@ class TaskController {
         const user_id = req.user.id;
 
         const findAllTask = await task.findAll({where:{user_id:user_id}});
-        res.status(200).send(findAllTask);
+        res.status(200).send({findAllTask});
 
     }
     static async getAllTaskWithProp(req,res){
