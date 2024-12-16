@@ -91,3 +91,7 @@ pada file .env tambahkan
 
 ```
 
+## Buat database menggunakan sequelize-cli 
+```
+  npx sequelize-cli db:create
+```
