@@ -58,4 +58,34 @@ pada file .env tambahkan
   PRODUCTION = 'true'
   COOKIE_EXPIRATION_DAYS = 1 
 ```
+## Config variabel 
+* klik file config
+* klik config.json
+
+```
+  {
+  "development": {
+    "username": "akun-postgres",
+    "password": "password-postgres",
+    "database": "TodoList",
+    "host": "localhost",
+    "dialect": "postgresql"
+  },
+  "test": {
+    "username": "akun-postgres",
+    "password": "password-postgres",
+    "database": "TodoList",
+    "host": "localhost",
+    "dialect": "postgresql"
+  },
+  "production": {
+    "username": "akun-postgres",
+    "password": "password-postgres",
+    "database": "TodoList",
+    "host": "localhost",
+    "dialect": "postgresql"
+  }
+}
+
+```
 
