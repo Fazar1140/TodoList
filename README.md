@@ -13,3 +13,11 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
 6. cookie-parser: sebagai informasi cookies dalam browser
 7. nodemon : menghitung ulang program setiap kali melakukan perubahan dengan save file
 
+# Features
+
+## User 
+* API yang menyediakan fungsi untuk melakukan authentikasi, pembuatan user, masuk dan keluar (login atau logout)
+## Task 
+* Api yang menyediakan fungsi untuk mengupdate badan atau body dalam task yang dapat dibuat, ubah dan dihapus
+## TaskProp
+* API yang menyediakan fungsi yang berupa informasi yang lebih detail mengenai Task body yang berisikan langkah task, beserta dengan informasinya dan juga status task, serta menyediakan fungsi untuk membuat, mengupdate dan menghapus database Task_inner
