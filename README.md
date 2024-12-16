@@ -41,3 +41,21 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
 ``` 
   npm install
  ```
+
+### Environtment variabel 
+pada file .env tambahkan 
+```
+  # Koneksi database
+
+  PORT = 5000
+
+  # JWT secret key
+  
+  SECRET_KEY = secret-key-milikmu 
+
+ # pengaturan cookie parser
+
+  PRODUCTION = 'true'
+  COOKIE_EXPIRATION_DAYS = 1 
+```
+
