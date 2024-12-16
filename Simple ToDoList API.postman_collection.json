@@ -1,0 +1,635 @@
+{
+	"info": {
+		"_postman_id": "40be37dc-ec25-4c16-8a66-503ddc0d82e0",
+		"name": "Simple ToDoList API",
+		"description": "## sebuah API todolist task yang mendemonstrasikan Basic CRUD\n\nterdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplikasi interface task yang dapat kita update, delete, insert dan lain lain nya dengan tujuan untuk membuat jadwal atau rencana yang akan kita lakukan\n\n# Program yang digunakan\n\n1. Express.js : sebuah library atau framework open source yang mempermudah pembangunan aplikasi CRUD dan RESTFUL API\n    \n2. Postgresql : database yang digunakan untuk menyimpan task\n    \n3. Sequelize : sebagai ORM untuk mengakses database melalui bahasa pemograman menggunakan javascript\n    \n4. Bcrypt : mengubah password untuk memastikan keamanan database\n    \n5. JSONWebtoken : untuk keamanan akses database\n    \n6. cookie-parser: sebagai informasi cookies dalam browser\n    \n7. nodemon : menghitung ulang program setiap kali melakukan perubahan dengan save file",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29272814"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "LeeGoldson@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/Auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Auth",
+								"signin"
+							]
+						},
+						"description": "Gets information about the authenticated user."
+					},
+					"response": []
+				},
+				{
+					"name": "SignUp",
+					"request": {
+						"method": "POST",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"description": "API yang menyediakan fungsi untuk melakukan authentikasi, pembuatan user, masuk dan keluar (login atau logout)\n\n**Server**\n\n`http://localhost:5000/Auth`\n\nserver akan aktif dan untuk mengakses Authentikasi kita menggunakan routes /Auth\n\n# /Auth\n\n#### POST\n\n`Post http://localhost:5000/Auth/singup`\n\nMembuat akun yang berisikan username email password penting yang harus diisi\n\n`Post http://localhost:5000/Auth/signin`\n\nMelakukan akses login API yang harus diisikan oleh email dan password\n\n## Get\n\n`Get http://localhost:5000/Auth/logout`\n\nkeluar dari API dan menghapus cookies dan token"
+		},
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "Create Task Table ('no token')",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"collection\": {\n        \"info\": {\n            \"name\": \"{{collectionName}}\",\n            \"schema\": \"{{collectionSchemaUrl}}\"\n        },\n        \"item\": [\n            {\n                \"request\": {}\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "https://api.getpostman.com/collections",
+							"protocol": "https",
+							"host": [
+								"api",
+								"getpostman",
+								"com"
+							],
+							"path": [
+								"collections"
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "{{workspaceId}}",
+									"description": "Optional. A workspace ID in which to create the collection.\n\nIf you do not include this query parameter, the system creates the collection in your \"My Workspace\" workspace.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Task Table ('token')",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0MDkyNzU3LCJleHAiOjE3MzQxNzkxNTd9.32bwKzlLQ0qGsHwyDv5vn-lfO793G16H0liII5RRvy8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "task_title",
+								"value": "Mengerjakan pr",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "task_status",
+								"value": "Important",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "task_title",
+									"value": "buat hamburger",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Important",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/Task/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Task",
+								"create"
+							],
+							"query": [
+								{
+									"key": "access_key",
+									"value": "{{accessKey}}",
+									"description": "Optional. A collection's read-only access key. Using this query parameter does not require an API key to call the endpoint.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Task ('no token')",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/Task/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Task",
+								""
+							]
+						},
+						"description": "Deletes a collection."
+					},
+					"response": []
+				},
+				{
+					"name": "Get All task ('with token')",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"collection\": {\n        \"info\": {\n            \"name\": \"{{collectionName}}\",\n            \"schema\": \"{{collectionSchemaUrl}}\"\n        },\n        \"item\": [\n            {\n                \"request\": {}\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "http://localhost:5000/Task/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Task",
+								""
+							]
+						},
+						"description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body."
+					},
+					"response": []
+				},
+				{
+					"name": "Get token by id ('with token')",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.getpostman.com/collections",
+							"protocol": "https",
+							"host": [
+								"api",
+								"getpostman",
+								"com"
+							],
+							"path": [
+								"collections"
+							],
+							"query": [
+								{
+									"key": "workspace",
+									"value": "{{workspaceId}}",
+									"description": "Optional. A workspace ID.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections."
+					},
+					"response": []
+				},
+				{
+					"name": "Patch Task ('with token')",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "task_title",
+									"value": "bersih rumah",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Optional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/Task/12",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Task",
+								"12"
+							],
+							"query": [
+								{
+									"key": "task_title",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "task_status",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task ('with token')",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0MDk1MTA0LCJleHAiOjE3MzQxODE1MDR9.9vooBVNMYxmTKy7yRnsYq9MqCON44myljL64-AKh6Rg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": []
+					},
+					"response": []
+				}
+			],
+			"description": "Api yang menyediakan fungsi untuk mengupdate badan atau body dalam task yang dapat kita buat, ubah dan dihapus\n\n##### Server\n\n`http://localhost:5000/Task`\n\nServer akan aktif dan memberikan fungsi yang dapat membuat, memanipulasi atau menghapus badan task\n\n## /Task\n\n### Post\n\nNon Token\n\n[<code>POST http://localhost:5000/Task/post</code>](http://localhost:5000/Task/post)\n\nMembuat badan task yang berisikan , user_id , task_title dan task_status tanpa harus menggunakan token\n\nToken\n\n[<code>POST http://localhost:5000/Task/create</code>](http://localhost:5000/Task/post)\n\nMembuat badan task yang berisikan task_title dan task_status harus memiliki token sehingga user_id terisi sesuai dengan hasil authentikasi yang telah dilakukan pada saat signin atau login\n\n### Get\n\nNon Token\n\n[<code>GET http://localhost:5000/Task/</code>](http://localhost:5000/Task/post)\n\nMemanggil keseluruhan Task Body yang dimiliki oleh berbagai user\n\nToken\n\n[<code>GET http://localhost:5000/Task/myTask</code>](http://localhost:5000/Task/post)\n\nMemanggil Task body yang dimiliki oleh user_id yang telah di autentikasikan dlm api signin\n\n[<code>GET http://localhost:5000/Task/:id</code>](http://localhost:5000/Task/post)\n\nMemanggil Task body yang dimiliki oleh user_id sesuai dengan param id yang dipanggil, jika tidak ada maka akan mengeluarkan error\n\n### Patch\n\nToken\n\n[<code>PATCH http://localhost:5000/Task/:id</code>](http://localhost:5000/Task/post)\n\nMengubah task body berdasarkan user_id sesuai dengan param id yang dipanggil berasal dari id dalam database Task\n\n### Delete\n\nToken\n\n[<code>DELETE http://localhost:5000/Task/:id</code>](http://localhost:5000/Task/post)\n\nMenghapus task body berdasarkan user_id dengan param id yang dipanggil berasal dari id dalam database task"
+		},
+		{
+			"name": "TaskProp",
+			"item": [
+				{
+					"name": "Create TaskProp ('no token'))",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "task_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "task_step",
+									"value": "beli daging",
+									"type": "text"
+								},
+								{
+									"key": "task_info",
+									"value": "membeli daging sapi ayam dan lain lain",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Important",
+									"type": "text"
+								},
+								{
+									"key": "task_title",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaskProp ('with token')",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "task_id",
+									"value": "13",
+									"type": "text"
+								},
+								{
+									"key": "task_step",
+									"value": "pel lantai",
+									"type": "text"
+								},
+								{
+									"key": "task_info",
+									"value": "membersihkan lantai dengan pel",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Optional",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get TaskProp ('no token')",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get TaskProp ('with token')",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Patch TaskProp ('with token')",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "taskPropId",
+									"value": "9",
+									"type": "text"
+								},
+								{
+									"key": "task_step",
+									"value": "beli snack",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Important",
+									"type": "text"
+								},
+								{
+									"key": "task_info",
+									"value": "membeli keripik kentang",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete TaskProp ('with token')",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "taskPropId",
+									"value": "9",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "API yang menyediakan fungsi yang berupa informasi yang lebih detail mengenai Task body yang berisikan langkah task, beserta dengan informasinya dan juga status task, serta menyediakan fungsi untuk membuat, mengupdate dan menghapus database Task_inner\n\n#### Server\n\n`http://localhost:5000/TaskProp`\n\nServer akan aktif dan memberikan fungsi yang dapat membuat, memanipulasi atau menghapus database task_inner\n\n## /TaskProp\n\n### Post\n\nNon token\n\n`POST http://localhost:5000/TaskProp/post`\n\nMembuat properti task yang berisikan user_id,task_step,task_info,task_status tanpa memerlukan token\n\nToken\n\n`POST http://localhost:5000/TaskProp/create`\n\nMembuat properti task yang berisikan task_step,task_info,task_status dengan user_id yang diambil melalui authentikasi token\n\n### Get\n\nNon Token\n\n`GET http://localhost:5000/TaskProp/all`\n\nmengeluarkan properti task yang dimiliki oleh berbagai user\n\nToken\n\n`GET http://localhost:5000/TaskProp/`\n\nmengeluarkan properti task berdasarkan user_id yang diambil melalui autentikasi token\n\n### Patch\n\nToken\n\n`PATCH http://localhost:5000/TaskProp/:id`\n\nmengupdate properti task berdasarkan params yang merujuk ke id Task database dan memiliki autentikasi token yang sama, dengan request body taskPropId yang berupa id dari database Task_inner\n\n### Delete\n\nToken\n\n`DELETE http://localhost:5000/TaskProp/:id`\n\nmenghapus properti task berdsarkan params yang merujuk ke id Task database dengan autentikasi token, dengan request body taskPropId dari id database Task_inner"
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "key",
+				"value": "X-API-Key",
+				"type": "string"
+			},
+			{
+				"key": "value",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://farming-simulator.pstmn.io"
+		}
+	]
+}
