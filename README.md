@@ -64,6 +64,8 @@ pada file .env tambahkan
 
 ```
   {
+  # Pasktikan akun postgres dan password mirip
+
   "development": {
     "username": "akun-postgres",
     "password": "password-postgres",
