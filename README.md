@@ -21,3 +21,13 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
 * Api yang menyediakan fungsi untuk mengupdate badan atau body dalam task yang dapat dibuat, ubah dan dihapus
 ## TaskProp
 * API yang menyediakan fungsi yang berupa informasi yang lebih detail mengenai Task body yang berisikan langkah task, beserta dengan informasinya dan juga status task, serta menyediakan fungsi untuk membuat, mengupdate dan menghapus database Task_inner
+
+## Project Setup 
+### yang dibutuhkan 
+* Node JS v18.19.1 atau sebelumnya
+* Postgresql & pgadmin 4
+
+## Clone project
+```
+  git clone https://github.com/RishiBakshii/mern-ecommerce.git
+```
