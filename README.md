@@ -34,6 +34,10 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
   git clone https://github.com/RishiBakshii/mern-ecommerce.git
 ```
 ## Navigasikan ke direktori proyek 
-```  cd mern-ecommerce ```
+```
+   cd mern-ecommerce 
+```
 ## Jangan lupa untuk install dependensi dengan mengetik : 
-``` npm install ```
+``` 
+  npm install
+ ```
