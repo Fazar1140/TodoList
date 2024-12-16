@@ -28,7 +28,8 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
 * Postgresql & pgadmin 4
 
 ## Clone project
-## Peringatan! projek komplit terdapat pada checkpoint ke 6 
+
+### Peringatan! projek komplit terdapat pada checkpoint ke 6 
 ```
   git clone https://github.com/RishiBakshii/mern-ecommerce.git
 ```
