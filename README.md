@@ -155,7 +155,7 @@ module.exports = {
 ```
 
 
-
+### Seed atau membuat data ke dalam sequelize-cli
 ```
   npx sequelize-cli db:seed:all
 ```
