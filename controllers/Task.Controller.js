@@ -34,7 +34,7 @@ class TaskController {
         //membuat task table dengan token
         const {task_title,task_status} = req.body;
         const user_id = req.user.id ;
-
+        
         const makeTaskTable = await task.create(
             {
                 user_id,task_title,task_status
@@ -66,9 +66,9 @@ class TaskController {
         },{where:{id:id,user_id:user_id}})
             
         if(patchTaskTable == 1){
-            res.send('Task table is successfully patched!')
+            res.status(200).send('Task table is successfully patched!')
         }else{
-            res.send('Something wrong with updating the task, try again!')
+            res.status(200).send('Something wrong with updating the task, try again!')
         }
         
     }
@@ -82,10 +82,10 @@ class TaskController {
         const deleteTaskTable = await task.destroy({where:{id:id,user_id:user_id}})
  
 
-        if(deleteTaskTable == 1 && deleteTaskProps){
-            res.send('Task table is successfully deleted!')
+        if(deleteTaskTable){
+            res.status(200).send('Task table is successfully deleted!')
         }else{
-            res.send('Something wrong with deleting the task, try again!')
+            res.status(200).send('Something wrong with deleting the task, try again!')
         }
     }
 }

@@ -3,13 +3,13 @@ class TaskPropController {
 
     static async getEveryTaskProp (req,res){
         
-        const getTaskProp = await task.findAll()
+        const getTaskProp = await task_inner.findAll()
         res.status(200).send(getTaskProp);
     }
     static async makeTaskProp (req,res){
-        const {user_id,task_step,task_info,task_status} = req.body;
-        const createPost = await task.create({
-            user_id,task_step,task_info,task_status
+        const {task_id,task_step,task_info,task_status} = req.body;
+        const createPost = await task_inner.create({
+            task_id,task_step,task_info,task_status
         })
         res.status(200).send(createPost);
     }
@@ -17,9 +17,9 @@ class TaskPropController {
         //mengambil keselurahan properti dalam task table berdasarkan user id 
         const user_id = req.user.id;      
 
-        const getTaskProp = await task.findAll({where:{user_id:user_id},attributes:{exclude:['id','user_id','task_title','task_status','createdAt','updatedAt']},include:{model:task_inner}});
+        const getTaskProp = await task.findAll({where:{user_id:user_id},attributes:{exclude:['createdAt','updatedAt','task_inners']},include:{model:task_inner}});
         
-        res.send(getTaskProp)
+        res.status(200).send(getTaskProp)
         
     }
     static async createTaskProp (req,res){
@@ -50,7 +50,7 @@ class TaskPropController {
                         task_id,task_step,task_info,task_status
                     }
                 )
-                res.send(createTaskProp)
+                res.status(200).send(createTaskProp)
                 break;
             }
             
@@ -68,6 +68,7 @@ class TaskPropController {
         const findTask = await task.findOne({where:{user_id:user_id,id:id}}) 
         
         const getId = findTask.id;
+        console.log(getId)
 
         const {taskPropId,task_step,task_info,task_status} = req.body;
 

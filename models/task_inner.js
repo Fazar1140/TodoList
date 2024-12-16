@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   task_inner.init({
-    task_id : DataTypes.INTEGER,
+    
     task_step: DataTypes.STRING,
     task_info: DataTypes.STRING,
     task_status: DataTypes.ENUM('Important', 'Intermediate', 'Optional')
