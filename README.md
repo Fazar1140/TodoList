@@ -95,3 +95,67 @@ pada file .env tambahkan
 ```
   npx sequelize-cli db:create
 ```
+
+## Migrasi skema database sequelize-cli 
+```
+  npx sequelize-cli db:migrate
+```
+
+## Seed database 
+input nama kedalam user 
+```
+  
+
+const bcrypt = require('bcryptjs');
+const SeedInitial = require('./SeedHelper/SeedInitial');
+
+const SeedHelper = new SeedInitial();
+
+//bisa menggunakan SeedHelper fungsi
+SeedHelper.password('12345678')
+
+//bisa menggunakan Seedhelper getter untuk getter manipulasi di kelas seedInitial dengan mengubah parameter yang diinginkan di get function
+const password = SeedHelper.getPassword
+
+const user = [{
+
+  username:'Lee',
+  email:'LeeGoldson@gmail.com',
+  password:bcrypt.hashSync(password,10),
+  createdAt:new Date(),
+  updatedAt:new Date()
+}]
+
+module.exports = {
+  
+
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
+   await queryInterface.bulkInsert('users',user,{})
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+  }
+};
+
+```
+
+
+
+```
+  npx sequelize-cli db:seed:all
+```
