@@ -13,7 +13,7 @@ let user = {
 
 describe('Auth Controller',()=>{
     beforeAll(async()=>{
-        await new Sequelize('TodoList','postgres','25112002',{
+        await new Sequelize('TodoList','postgres','password',{
             host:'localhost',
             dialect:'postgresql'
             }
