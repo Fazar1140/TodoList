@@ -54,7 +54,7 @@
 								"signin"
 							]
 						},
-						"description": "Gets information about the authenticated user."
+						"description": "masuk kedalam akun yang telah kita buat"
 					},
 					"response": []
 				},
@@ -62,7 +62,40 @@
 					"name": "SignUp",
 					"request": {
 						"method": "POST",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "jacobson",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "Jacobson@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345678",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/Auth/signup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Auth",
+								"signup"
+							]
+						},
+						"description": "Membuat akun yang berisikan username email password penting yang harus diisi"
 					},
 					"response": []
 				},
@@ -70,7 +103,20 @@
 					"name": "Logout",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/Auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Auth",
+								"logout"
+							]
+						},
+						"description": "keluar dari API dan menghapus cookies dan token"
 					},
 					"response": []
 				}
@@ -89,11 +135,15 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -102,19 +152,35 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"collection\": {\n        \"info\": {\n            \"name\": \"{{collectionName}}\",\n            \"schema\": \"{{collectionSchemaUrl}}\"\n        },\n        \"item\": [\n            {\n                \"request\": {}\n            }\n        ]\n    }\n}"
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "user_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "task_title",
+									"value": "Membuat pasta",
+									"type": "text"
+								},
+								{
+									"key": "task_status",
+									"value": "Optional",
+									"type": "text"
+								}
+							]
 						},
 						"url": {
-							"raw": "https://api.getpostman.com/collections",
-							"protocol": "https",
+							"raw": "http://localhost:5000/Task/post",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "5000",
 							"path": [
-								"collections"
+								"Task",
+								"post"
 							],
 							"query": [
 								{
@@ -125,7 +191,7 @@
 								}
 							]
 						},
-						"description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
+						"description": "Membuat Task Table tanpa menggunakan token yang dihasilkan dari authentikasi"
 					},
 					"response": []
 				},
@@ -204,7 +270,7 @@
 								}
 							]
 						},
-						"description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json)."
+						"description": "Membuat badan task yang berisikan task_title dan task_status harus memiliki token sehingga user_id terisi sesuai dengan hasil authentikasi yang telah dilakukan pada saat signin atau login"
 					},
 					"response": []
 				},
@@ -223,6 +289,9 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -237,7 +306,7 @@
 								""
 							]
 						},
-						"description": "Deletes a collection."
+						"description": "Mengambil keseluruhan dari badan task tanpa token"
 					},
 					"response": []
 				},
@@ -256,6 +325,16 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0MDk1MTA0LCJleHAiOjE3MzQxODE1MDR9.9vooBVNMYxmTKy7yRnsYq9MqCON44myljL64-AKh6Rg",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -264,11 +343,11 @@
 							}
 						],
 						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"collection\": {\n        \"info\": {\n            \"name\": \"{{collectionName}}\",\n            \"schema\": \"{{collectionSchemaUrl}}\"\n        },\n        \"item\": [\n            {\n                \"request\": {}\n            }\n        ]\n    }\n}"
+							"mode": "urlencoded",
+							"urlencoded": []
 						},
 						"url": {
-							"raw": "http://localhost:5000/Task/",
+							"raw": "http://localhost:5000/Task/myTask",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -276,15 +355,15 @@
 							"port": "5000",
 							"path": [
 								"Task",
-								""
+								"myTask"
 							]
 						},
-						"description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body."
+						"description": "Mengambil Keselurahan Body Task dengan token authentikasi yang sama"
 					},
 					"response": []
 				},
 				{
-					"name": "Get token by id ('with token')",
+					"name": "Get Task by id ('with token')",
 					"event": [
 						{
 							"listen": "test",
@@ -292,23 +371,34 @@
 								"exec": [
 									""
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJDaHVkR29sZHNvbkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkNMZWUiLCJpYXQiOjE3MzQzNTI3MzgsImV4cCI6MTczNDQzOTEzOH0.3E5tP5t3CbBsrlGm5Wc0d1Iq95oXsvqLUxUP5Fip0Uc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://api.getpostman.com/collections",
-							"protocol": "https",
+							"raw": "http://localhost:5000/Task/1",
+							"protocol": "http",
 							"host": [
-								"api",
-								"getpostman",
-								"com"
+								"localhost"
 							],
+							"port": "5000",
 							"path": [
-								"collections"
+								"Task",
+								"1"
 							],
 							"query": [
 								{
@@ -319,13 +409,23 @@
 								}
 							]
 						},
-						"description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections."
+						"description": "mengeluarkan task dengan token hasil dari authentikasi berdsarkan id"
 					},
 					"response": []
 				},
 				{
 					"name": "Patch Task ('with token')",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJDaHVkR29sZHNvbkBnbWFpbC5jb20iLCJ1c2VybmFtZSI6IkNMZWUiLCJpYXQiOjE3MzQzNTI3MzgsImV4cCI6MTczNDQzOTEzOH0.3E5tP5t3CbBsrlGm5Wc0d1Iq95oXsvqLUxUP5Fip0Uc",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -344,7 +444,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/Task/12",
+							"raw": "http://localhost:5000/Task/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -352,7 +452,7 @@
 							"port": "5000",
 							"path": [
 								"Task",
-								"12"
+								"1"
 							],
 							"query": [
 								{
@@ -366,7 +466,8 @@
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "mengupdate task dengan token hasil dari authentikasi"
 					},
 					"response": []
 				},
@@ -384,7 +485,24 @@
 							]
 						},
 						"method": "DELETE",
-						"header": []
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:5000/Task/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"Task",
+								"1"
+							]
+						},
+						"description": "Menghapus task body, harus melakukan authentikasi terlebih dahulu"
 					},
 					"response": []
 				}
@@ -395,7 +513,7 @@
 			"name": "TaskProp",
 			"item": [
 				{
-					"name": "Create TaskProp ('no token'))",
+					"name": "Create TaskProp ('no token')",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -447,13 +565,24 @@
 								"TaskProp",
 								"post"
 							]
-						}
+						},
+						"description": "Membuat informasi Task tanpa menggunakan token"
 					},
 					"response": []
 				},
 				{
 					"name": "Create TaskProp ('with token')",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0NDQ0OTg3LCJleHAiOjE3MzQ1MzEzODd9.-YE4xtxk8IufNYPtuqZbxviAibqEV16t1vXdvmiv_5k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -461,17 +590,17 @@
 							"urlencoded": [
 								{
 									"key": "task_id",
-									"value": "13",
+									"value": "2",
 									"type": "text"
 								},
 								{
 									"key": "task_step",
-									"value": "pel lantai",
+									"value": "membeli bumbu",
 									"type": "text"
 								},
 								{
 									"key": "task_info",
-									"value": "membersihkan lantai dengan pel",
+									"value": "beli garam lada paprika dll",
 									"type": "text"
 								},
 								{
@@ -492,7 +621,8 @@
 								"TaskProp",
 								"create"
 							]
-						}
+						},
+						"description": "membuat informasi lebih detail dari task dengan menggunkan token dari hasil authentikasi"
 					},
 					"response": []
 				},
@@ -500,21 +630,67 @@
 					"name": "Get TaskProp ('no token')",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								"all"
+							]
+						},
+						"description": "Mengeluarkan keseluruhan informasi task properti dari task body tanpa menggunakan token"
 					},
 					"response": []
 				},
 				{
 					"name": "Get TaskProp ('with token')",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0NDQ0OTg3LCJleHAiOjE3MzQ1MzEzODd9.-YE4xtxk8IufNYPtuqZbxviAibqEV16t1vXdvmiv_5k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/TaskProp/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"TaskProp",
+								""
+							]
+						},
+						"description": "mengeluarkan informasi mengenai task properti dengan token dari hasil authentikasi"
 					},
 					"response": []
 				},
 				{
 					"name": "Patch TaskProp ('with token')",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0NDQzNjExLCJleHAiOjE3MzQ1MzAwMTF9.EYzUzE20H8W5qfbOeSvD40PF9Rmt0ggAWci3CUf7LiA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
 						"body": {
@@ -522,7 +698,7 @@
 							"urlencoded": [
 								{
 									"key": "taskPropId",
-									"value": "9",
+									"value": "1",
 									"type": "text"
 								},
 								{
@@ -543,7 +719,7 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost:5000/TaskProp/1",
+							"raw": "http://localhost:5000/TaskProp/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -551,15 +727,26 @@
 							"port": "5000",
 							"path": [
 								"TaskProp",
-								"1"
+								"2"
 							]
-						}
+						},
+						"description": "mengubah informasi mengenai task properti yang dimiliki oleh task body harus memiliki token dari hasil authentikasi"
 					},
 					"response": []
 				},
 				{
 					"name": "Delete TaskProp ('with token')",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJMZWVHb2xkc29uQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiTGVlIiwiaWF0IjoxNzM0NDQ0OTg3LCJleHAiOjE3MzQ1MzEzODd9.-YE4xtxk8IufNYPtuqZbxviAibqEV16t1vXdvmiv_5k",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"body": {
@@ -583,7 +770,8 @@
 								"TaskProp",
 								"1"
 							]
-						}
+						},
+						"description": "menghapus task informasi yang dimiliki oleh task body harus memiliki token dari authentikasi"
 					},
 					"response": []
 				}
