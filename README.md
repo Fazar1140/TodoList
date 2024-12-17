@@ -31,7 +31,8 @@ terdiri dari berbagai fungsi dan kelas, project sederhana yang bermuatkan aplika
 
 ### Peringatan! projek komplit terdapat pada checkpoint ke 6 
 ```
-  git clone https://github.com/RishiBakshii/mern-ecommerce.git
+ git clone --single-branch --branch checkpoint-6 https://github.com/Fazar1140/TodoList.git
+
 ```
 ## Navigasikan ke direktori proyek 
 ```
