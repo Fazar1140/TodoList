@@ -135,7 +135,7 @@ describe("POST /TaskProp ",()=>{
             task_info:'pisang jenis sunrise, apel merah dan lain lain'
         })
         expect(res.status).toBe(200)
-        expect(res.body.user_id).toBeDefined();
+        expect(res.body.task_id).toBeDefined();
         
     });
 }) 
