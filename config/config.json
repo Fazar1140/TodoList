@@ -4,20 +4,20 @@
     "password": "password",
     "database": "TodoList",
     "host": "localhost",
-    "dialect": "postgresql"
+    "dialect": "postgres"
   },
   "test": {
     "username": "postgres",
     "password": "password",
     "database": "TodoList",
     "host": "localhost",
-    "dialect": "postgresql"
+    "dialect": "postgres"
   },
   "production": {
     "username": "postgres",
     "password": "password",
     "database": "TodoList",
     "host": "localhost",
-    "dialect": "postgresql"
+    "dialect": "postgres"
   }
 }
