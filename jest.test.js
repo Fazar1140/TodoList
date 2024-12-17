@@ -3,11 +3,11 @@ const request = require('supertest');
 const Sequelize = require('sequelize');
   
  
-//definisikan username password dan email
+//definisikan username password dan email 
 let user = {
-    username : 'cajobson',
-    password : '2313212',
-    email : 'cajobson@gmail.com',
+    username : 'Mulyono',
+    password : '12345678',
+    email : 'mulyono@gmail.com',
    
 }
 
@@ -101,8 +101,8 @@ describe("POST /Task ",()=>{
         const res = await request(app)
         .post('/Task/post')
         .send({
-            user_id:10,
-            task_title:'make a cocktail',
+            user_id:2,
+            task_title:'beli buah buahan',
             task_status:'Optional',
         })
         expect(res.status).toBe(200)
@@ -129,10 +129,10 @@ describe("POST /TaskProp ",()=>{
         const res = await request(app)
         .post('/TaskProp/post')
         .send({
-            user_id:10,
-            task_step:'get some booze',
-            task_status:'Important',
-            task_info:'all kinds of alchol'
+            user_id:2,
+            task_step:'membeli buah apel pisang ',
+            task_status:'Optional',
+            task_info:'pisang jenis sunrise, apel merah dan lain lain'
         })
         expect(res.status).toBe(200)
         expect(res.body.user_id).toBeDefined();
