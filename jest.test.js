@@ -129,13 +129,13 @@ describe("POST /TaskProp ",()=>{
         const res = await request(app)
         .post('/TaskProp/post')
         .send({
-            user_id:2,
+            task_id:2,
             task_step:'membeli buah apel pisang ',
             task_status:'Optional',
             task_info:'pisang jenis sunrise, apel merah dan lain lain'
         })
         expect(res.status).toBe(200)
-        expect(res.body.user_id).toBeDefined();
+        expect(res.body.task_id).toBeDefined();
         
     });
 }) 
