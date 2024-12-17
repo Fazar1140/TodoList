@@ -160,3 +160,13 @@ module.exports = {
 ```
   npx sequelize-cli db:seed:all
 ```
+
+### jika sudah seeding data jalankan aplikasi 
+```
+ npm run start
+```
+
+### untuk menjalankan jest gunakan 
+```
+ npm test
+```
